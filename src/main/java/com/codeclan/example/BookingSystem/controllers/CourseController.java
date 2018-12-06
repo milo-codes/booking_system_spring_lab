@@ -30,4 +30,9 @@ public class CourseController {
         return courseRepository.getAllCoursesWithRating(rating);
     }
 
+    @GetMapping(value = "/customer/{customerId}")
+    public List<Course> getAllCoursesForCustomer(@PathVariable Long customerId) {
+        return courseRepository.getAllCoursesForCustomer(customerId);
+    }
+
 }

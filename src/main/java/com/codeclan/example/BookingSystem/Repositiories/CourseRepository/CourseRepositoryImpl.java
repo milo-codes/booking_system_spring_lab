@@ -1,6 +1,7 @@
 package com.codeclan.example.BookingSystem.Repositiories.CourseRepository;
 
 import com.codeclan.example.BookingSystem.models.Course;
+import com.codeclan.example.BookingSystem.models.Customer;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -31,6 +32,28 @@ public class CourseRepositoryImpl implements CourseRepositoryCustom {
             results = criteria.list();
         } catch (HibernateException exception) {
             exception.printStackTrace();
+        } finally {
+            session.close();
+        }
+
+        return results;
+
+    }
+
+//    Get all courses for a given customer
+    @Transactional
+    public List<Course> getAllCoursesForCustomer(Long customerId) {
+
+        List<Course> results = null;
+
+        Session session = entityManager.unwrap(Session.class);
+        try {
+            Criteria criteria = session.createCriteria(Course.class);
+            criteria.createAlias("bookings", "booking");
+            criteria.add(Restrictions.eq("booking.customer.id", customerId));
+            results = criteria.list();
+        } catch (HibernateException ex) {
+            ex.printStackTrace();
         } finally {
             session.close();
         }

@@ -26,7 +26,7 @@ public class CustomerRepositoryImpl implements CustomerRepositoryCustom {
         try {
             Criteria criteria = session.createCriteria(Customer.class);
             criteria.createAlias("bookings", "booking");
-            criteria.add(Restrictions.eq("booking.course.id", courseId));
+            criteria.add(Restrictions.eq("booking.course", courseId));
             results = criteria.list();
         } catch (HibernateException ex) {
             ex.printStackTrace();

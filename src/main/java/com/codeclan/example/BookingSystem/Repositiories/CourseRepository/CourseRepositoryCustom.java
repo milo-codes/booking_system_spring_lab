@@ -10,4 +10,6 @@ public interface CourseRepositoryCustom {
 
     List<Course> getAllCoursesWithRating(int rating);
 
+    List<Course> getAllCoursesForCustomer(Long customerId);
+
 }
